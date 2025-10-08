@@ -1,12 +1,26 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import {Component} from '@angular/core';
+import {CurrencyPipe, DatePipe} from '@angular/common';
+import {Exponential} from './pipes/exponential';
+
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.html',
-  styleUrl: './app.css'
+  template: `
+    {{ today | date:'hh:mm' }}
+
+    {{ amount | currency:'EUR' }}
+
+    {{ 2 | exponential:3 }}
+  `,
+  imports: [
+    DatePipe,
+    CurrencyPipe,
+    Exponential
+  ]
 })
 export class App {
-  protected readonly title = signal('formazione-sf');
+
+  today = new Date();
+
+  amount = 20;
 }
