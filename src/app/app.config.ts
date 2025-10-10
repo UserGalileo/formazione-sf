@@ -1,18 +1,27 @@
 import {
-  ApplicationConfig,
+  ApplicationConfig, InjectionToken,
   provideBrowserGlobalErrorListeners,
-  provideZoneChangeDetection,
   provideZonelessChangeDetection
 } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import {provideRouter, withComponentInputBinding} from '@angular/router';
 
 import { routes } from './app.routes';
+import {Logger, OldLogger} from './services/logger';
+import {provideHttpClient, withFetch} from '@angular/common/http';
+
+export const APP_CONFIG = new InjectionToken<Record<string, any>>('app config');
+
+const config: Record<string, any> = {
+  'apiUrl': '/api'
+}
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
-    // provideZoneChangeDetection({ eventCoalescing: true }),
     provideZonelessChangeDetection(),
-    provideRouter(routes)
+    provideRouter(routes, withComponentInputBinding()),
+    provideHttpClient(withFetch()),
+    { provide: Logger, useClass: OldLogger },
+    { provide: APP_CONFIG, useValue: config }
   ]
 };

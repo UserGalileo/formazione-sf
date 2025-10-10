@@ -1,26 +1,27 @@
 import {Component} from '@angular/core';
-import {CurrencyPipe, DatePipe} from '@angular/common';
-import {Exponential} from './pipes/exponential';
-
+import {RouterLink, RouterOutlet} from '@angular/router';
 
 @Component({
   selector: 'app-root',
   template: `
-    {{ today | date:'hh:mm' }}
+    <nav>
+      <ul>
+        <li><a routerLink="/">Home</a></li>
+        <li><a routerLink="/form">Form</a></li>
+        <li><a routerLink="/profile">Profile</a></li>
+        <li><a routerLink="/admin">Admin</a></li>
+        <li><a routerLink="/users">Users</a></li>
+      </ul>
+    </nav>
 
-    {{ amount | currency:'EUR' }}
-
-    {{ 2 | exponential:3 }}
+    <router-outlet />
   `,
   imports: [
-    DatePipe,
-    CurrencyPipe,
-    Exponential
+    RouterOutlet,
+    RouterLink,
   ]
 })
 export class App {
 
-  today = new Date();
 
-  amount = 20;
 }
