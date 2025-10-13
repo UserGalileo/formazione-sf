@@ -17,7 +17,7 @@ export const routes: Routes = [
   {
     path: 'profile',
     // Lazy Loading
-    loadComponent: () => import('./components/profile')
+    loadComponent: () => import('./components/profile'),
   },
   {
     path: 'admin',
@@ -32,3 +32,4 @@ export const routes: Routes = [
   },
   { path: '**', component: PageNotFound }
 ];
+

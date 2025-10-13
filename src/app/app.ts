@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {RouterLink, RouterOutlet} from '@angular/router';
-
+import {Form} from './components/form';
 @Component({
   selector: 'app-root',
   template: `
@@ -19,9 +19,12 @@ import {RouterLink, RouterOutlet} from '@angular/router';
   imports: [
     RouterOutlet,
     RouterLink,
+    Form,
   ]
 })
 export class App {
+
+
 
 
 }
