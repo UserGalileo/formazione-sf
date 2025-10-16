@@ -12,7 +12,7 @@ export const routes: Routes = [
   {
     path: 'form',
     component: Form,
-    canDeactivate: [canDeactivateGuard]
+    // canDeactivate: [canDeactivateGuard]
   },
   {
     path: 'profile',

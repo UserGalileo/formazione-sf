@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {RouterLink, RouterOutlet} from '@angular/router';
-import {Form} from './components/form';
+import {ReactiveFormsModule} from '@angular/forms';
+
 @Component({
   selector: 'app-root',
   template: `
@@ -14,17 +15,15 @@ import {Form} from './components/form';
       </ul>
     </nav>
 
-    <router-outlet />
+    <router-outlet /><hr>
   `,
   imports: [
     RouterOutlet,
     RouterLink,
-    Form,
+    ReactiveFormsModule,
   ]
 })
 export class App {
-
-
 
 
 }

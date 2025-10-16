@@ -1,10 +1,27 @@
 import {
   CanActivateChildFn,
-  CanActivateFn, CanLoadFn, CanMatchFn,
+  CanActivateFn, CanLoadFn, CanMatchFn, Router,
 } from '@angular/router';
+import {map, tap, timer} from 'rxjs';
+import {inject} from '@angular/core';
+
+function isLogged() {
+  return timer(1000).pipe(
+    map(() => false)
+  )
+}
 
 export const authGuard: CanMatchFn = (route) => {
-  return false;
+
+  const router = inject(Router);
+
+  return isLogged().pipe(
+    tap(is => {
+      if (!is) {
+        router.navigateByUrl('/login');
+      }
+    })
+  );
 }
 
 
