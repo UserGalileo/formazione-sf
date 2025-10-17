@@ -37,3 +37,4 @@ export class SearchForm {
     liveSearch(500, term => this.searchService.getSuggestions(term))
   ));
 }
+

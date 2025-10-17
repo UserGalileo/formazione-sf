@@ -3,6 +3,9 @@ import {httpResource} from '@angular/common/http';
 import {User as IUser} from '../models/user';
 import {RouterLink} from '@angular/router';
 import {JsonPipe} from '@angular/common';
+import {Store} from '@ngrx/store';
+import {usersActions} from '../store/users/users.actions';
+import {usersFeature} from '../store/users/users.reducer';
 
 @Component({
   selector: 'app-user',
@@ -17,13 +20,20 @@ import {JsonPipe} from '@angular/common';
 
     <hr>
 
-    {{ user.value() | json }}
+    {{ user() | json }}
+
   `
 })
 export class User {
 
+  store = inject(Store);
+
   userId = input.required<string>();
 
-  user = httpResource<IUser>(() => `https://jsonplaceholder.typicode.com/users/${this.userId()}`);
+  user = this.store.selectSignal(usersFeature.selectCurrentUser);
+
+  ngOnInit() {
+    this.store.dispatch(usersActions.userPageEnter());
+  }
 
 }

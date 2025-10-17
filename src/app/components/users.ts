@@ -1,7 +1,10 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {httpResource} from '@angular/common/http';
 import {User} from '../models/user';
 import {RouterLink, RouterOutlet} from '@angular/router';
+import {Store} from '@ngrx/store';
+import {usersFeature} from '../store/users/users.reducer';
+import {usersActions} from '../store/users/users.actions';
 
 @Component({
   selector: 'app-users',
@@ -11,7 +14,7 @@ import {RouterLink, RouterOutlet} from '@angular/router';
   ],
   template: `
     <ul>
-      @for (user of users.value() || []; track user.id) {
+      @for (user of users() || []; track user.id) {
         <li><a [routerLink]="'/users/' + user.id">{{ user.name }}</a></li>
       }
     </ul>
@@ -23,6 +26,12 @@ import {RouterLink, RouterOutlet} from '@angular/router';
 })
 export class Users {
 
-  users = httpResource<User[]>(() =>  `https://jsonplaceholder.typicode.com/users`);
+  store = inject(Store);
+
+  users = this.store.selectSignal(usersFeature.selectList);
+
+  ngOnInit() {
+    this.store.dispatch(usersActions.usersPageEnter());
+  }
 
 }
